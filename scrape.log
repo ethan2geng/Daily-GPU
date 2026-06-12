@@ -1,0 +1,498 @@
+=== GPU Price Scrape  2026-06-10 10:00  ===
+  Page  1:  20 rows  (total so far: 20)
+  Page  2:  20 rows  (total so far: 40)
+  Page  3:  20 rows  (total so far: 60)
+  Page  4:  20 rows  (total so far: 80)
+  Page  5:  20 rows  (total so far: 100)
+  Page  6:  20 rows  (total so far: 120)
+  Page  7:  20 rows  (total so far: 140)
+  Page  8:  20 rows  (total so far: 160)
+  Page  9:  20 rows  (total so far: 180)
+  Page 10:  20 rows  (total so far: 200)
+  Page 11:  20 rows  (total so far: 220)
+  Page 12:  20 rows  (total so far: 240)
+  Page 13:  20 rows  (total so far: 260)
+  Page 14:  20 rows  (total so far: 280)
+  Page 15:  20 rows  (total so far: 300)
+  Page 16:  20 rows  (total so far: 320)
+  Page 17:  20 rows  (total so far: 340)
+  Page 18:  20 rows  (total so far: 360)
+  Page 19:  20 rows  (total so far: 380)
+  Page 20:   0 rows  (total so far: 380)
+
+Raw rows: 380  |  providers: 12  |  GPUs: 34
+Traceback (most recent call last):
+  File "/Users/ethangeng/gpu_prices/scrape.py", line 175, in <module>
+    asyncio.run(main())
+    ~~~~~~~~~~~^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ~~~~~~~~~~^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/base_events.py", line 719, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "/Users/ethangeng/gpu_prices/scrape.py", line 167, in main
+    daily_path = save_excel(offers)
+  File "/Users/ethangeng/gpu_prices/scrape.py", line 130, in save_excel
+    with pd.ExcelWriter(path, engine="openpyxl") as writer:
+         ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/pandas/io/excel/_openpyxl.py", line 61, in __init__
+    super().__init__(
+    ~~~~~~~~~~~~~~~~^
+        path,
+        ^^^^^
+    ...<3 lines>...
+        engine_kwargs=engine_kwargs,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/pandas/io/excel/_base.py", line 1246, in __init__
+    self._handles = get_handle(
+                    ~~~~~~~~~~^
+        path, mode, storage_options=storage_options, is_text=False
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/pandas/io/common.py", line 882, in get_handle
+    handle = open(handle, ioargs.mode)
+PermissionError: [Errno 1] Operation not permitted: '/Users/ethangeng/Documents/GPU price/gpu_prices_2026-06-10.xlsx'
+=== Raw Scrape  2026-06-11 10:00  ===
+  Page  1:  20 rows  (total: 20)
+  Page  2:  20 rows  (total: 40)
+  Page  3:  20 rows  (total: 60)
+  Page  4:  20 rows  (total: 80)
+  Page  5:  20 rows  (total: 100)
+  Page  6:  20 rows  (total: 120)
+  Page  7:  20 rows  (total: 140)
+  Page  8:  20 rows  (total: 160)
+  Page  9:  20 rows  (total: 180)
+  Page 10:  20 rows  (total: 200)
+  Page 11:  20 rows  (total: 220)
+  Page 12:  20 rows  (total: 240)
+  Page 13:  20 rows  (total: 260)
+  Page 14:  20 rows  (total: 280)
+  Page 15:  20 rows  (total: 300)
+  Page 16:  20 rows  (total: 320)
+  Page 17:  20 rows  (total: 340)
+  Page 18:  20 rows  (total: 360)
+  Page 19:  20 rows  (total: 380)
+  Page 20:  20 rows  (total: 400)
+  Page 21:  20 rows  (total: 420)
+  Page 22:  20 rows  (total: 440)
+  Page 23:  17 rows  (total: 457)
+Raw saved → /Users/ethangeng/gpu_prices/raw/2026-06-11_1008.csv  (457 offers)
+=== Raw done ===
+=== Raw Scrape  2026-06-11 10:15  ===
+  Page  1:  20 rows  (total: 20)
+  Page  2:  20 rows  (total: 40)
+  Page  3:  20 rows  (total: 60)
+  Page  4:  20 rows  (total: 80)
+  Page  5:  20 rows  (total: 100)
+  Page  6:  20 rows  (total: 120)
+  Page  7:  20 rows  (total: 140)
+  Page  8:  20 rows  (total: 160)
+  Page  9:  20 rows  (total: 180)
+  Page 10:  20 rows  (total: 200)
+  Page 11:  20 rows  (total: 220)
+  Page 12:  20 rows  (total: 240)
+  Page 13:  20 rows  (total: 260)
+  Page 14:  20 rows  (total: 280)
+  Page 15:  20 rows  (total: 300)
+  Page 16:  20 rows  (total: 320)
+  Page 17:  20 rows  (total: 340)
+  Page 18:  20 rows  (total: 360)
+  Page 19:  20 rows  (total: 380)
+  Page 20:  20 rows  (total: 400)
+  Page 21:  20 rows  (total: 420)
+  Page 22:  20 rows  (total: 440)
+  Page 23:  10 rows  (total: 450)
+Raw saved → /Users/ethangeng/gpu_prices/raw/2026-06-11_1023.csv  (450 offers)
+=== Raw done ===
+=== Raw Scrape  2026-06-11 10:30  ===
+  Page  1:  20 rows  (total: 20)
+  Page  2:  20 rows  (total: 40)
+  Page  3:  20 rows  (total: 60)
+  Page  4:  20 rows  (total: 80)
+  Page  5:  20 rows  (total: 100)
+  Page  6:  20 rows  (total: 120)
+  Page  7:  20 rows  (total: 140)
+  Page  8:  20 rows  (total: 160)
+  Page  9:  20 rows  (total: 180)
+  Page 10:  20 rows  (total: 200)
+  Page 11:  20 rows  (total: 220)
+  Page 12:  20 rows  (total: 240)
+  Page 13:  20 rows  (total: 260)
+  Page 14:  20 rows  (total: 280)
+  Page 15:  20 rows  (total: 300)
+  Page 16:  20 rows  (total: 320)
+  Page 17:  20 rows  (total: 340)
+  Page 18:  20 rows  (total: 360)
+  Page 19:  20 rows  (total: 380)
+  Page 20:  20 rows  (total: 400)
+  Page 21:  20 rows  (total: 420)
+  Page 22:  20 rows  (total: 440)
+  Page 23:  16 rows  (total: 456)
+Raw saved → /Users/ethangeng/gpu_prices/raw/2026-06-11_1038.csv  (456 offers)
+=== Raw done ===
+=== Raw Scrape  2026-06-11 10:45  ===
+  Page  1:  20 rows  (total: 20)
+  Page  2:  20 rows  (total: 40)
+  Page  3:  20 rows  (total: 60)
+  Page  4:  20 rows  (total: 80)
+  Page  5:  20 rows  (total: 100)
+  Page  6:  20 rows  (total: 120)
+  Page  7:  20 rows  (total: 140)
+  Page  8:  20 rows  (total: 160)
+  Page  9:  20 rows  (total: 180)
+  Page 10:  20 rows  (total: 200)
+  Page 11:  20 rows  (total: 220)
+  Page 12:  20 rows  (total: 240)
+  Page 13:  20 rows  (total: 260)
+  Page 14:  20 rows  (total: 280)
+  Page 15:  20 rows  (total: 300)
+  Page 16:  20 rows  (total: 320)
+  Page 17:  20 rows  (total: 340)
+  Page 18:  20 rows  (total: 360)
+  Page 19:  20 rows  (total: 380)
+  Page 20:  20 rows  (total: 400)
+  Page 21:  20 rows  (total: 420)
+  Page 22:  20 rows  (total: 440)
+  Page 23:  16 rows  (total: 456)
+Raw saved → /Users/ethangeng/gpu_prices/raw/2026-06-11_1053.csv  (456 offers)
+=== Raw done ===
+=== Full Run  2026-06-11 11:00  ===
+  Page  1:  20 rows  (total: 20)
+  Page  2:  20 rows  (total: 40)
+  Page  3:  20 rows  (total: 60)
+  Page  4:  20 rows  (total: 80)
+  Page  5:  20 rows  (total: 100)
+  Page  6:  20 rows  (total: 120)
+  Page  7:  20 rows  (total: 140)
+  Page  8:  20 rows  (total: 160)
+  Page  9:  20 rows  (total: 180)
+  Page 10:  20 rows  (total: 200)
+  Page 11:  20 rows  (total: 220)
+  Page 12:  20 rows  (total: 240)
+  Page 13:  20 rows  (total: 260)
+  Page 14:  20 rows  (total: 280)
+  Page 15:  20 rows  (total: 300)
+  Page 16:  20 rows  (total: 320)
+  Page 17:  20 rows  (total: 340)
+  Page 18:  20 rows  (total: 360)
+  Page 19:  20 rows  (total: 380)
+  Page 20:  20 rows  (total: 400)
+=== Full Run  2026-06-11 11:08  ===
+  Page 21:  20 rows  (total: 420)
+  Page  1:  20 rows  (total: 20)
+  Page 22:  20 rows  (total: 440)
+  Page  2:  20 rows  (total: 40)
+  Page 23:   9 rows  (total: 449)
+Raw saved → /Users/ethangeng/gpu_prices/raw/2026-06-11_1109.csv  (449 offers)
+Compiling from 5 raw scrape(s): ['2026-06-11_1109.csv', '2026-06-11_1053.csv', '2026-06-11_1038.csv', '2026-06-11_1023.csv', '2026-06-11_1008.csv']
+Compiled 96 unique (model, provider) offers.
+Rows: 96  |  providers: 14  |  GPUs: 43
+Saved → /Users/ethangeng/Documents/GPU price/gpu_prices_2026-06-11.xlsx
+History updated → /Users/ethangeng/gpu_prices/history.csv  (36 total rows)
+Traceback (most recent call last):
+  File "/Users/ethangeng/gpu_prices/scrape.py", line 234, in <module>
+    asyncio.run(main())
+    ~~~~~~~~~~~^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ~~~~~~~~~~^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/base_events.py", line 719, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "/Users/ethangeng/gpu_prices/scrape.py", line 228, in main
+    charts_path = generate_charts_excel(hist)
+  File "/Users/ethangeng/gpu_prices/charts.py", line 243, in generate_charts_excel
+    CHARTS_FILE.unlink()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/pathlib/_local.py", line 746, in unlink
+    os.unlink(self)
+    ~~~~~~~~~^^^^^^
+PermissionError: [Errno 1] Operation not permitted: '/Users/ethangeng/Documents/GPU price/GPU_Price_Trends.xlsx'
+  Page  3:  20 rows  (total: 60)
+  Page  4:  20 rows  (total: 80)
+  Page  5:  20 rows  (total: 100)
+  Page  6:  20 rows  (total: 120)
+  Page  7:  20 rows  (total: 140)
+  Page  8:  20 rows  (total: 160)
+  Page  9:  20 rows  (total: 180)
+  Page 10:  20 rows  (total: 200)
+  Page 11:  20 rows  (total: 220)
+  Page 12:  20 rows  (total: 240)
+  Page 13:  20 rows  (total: 260)
+  Page 14:  20 rows  (total: 280)
+  Page 15:  20 rows  (total: 300)
+  Page 16:  20 rows  (total: 320)
+  Page 17:  20 rows  (total: 340)
+  Page 18:  20 rows  (total: 360)
+  Page 19:  20 rows  (total: 380)
+  Page 20:  20 rows  (total: 400)
+  Page 21:  20 rows  (total: 420)
+=== Full Run  2026-06-11 11:16  ===
+  Page 22:  20 rows  (total: 440)
+  Page  1:  20 rows  (total: 20)
+  Page 23:  15 rows  (total: 455)
+Raw saved → /Users/ethangeng/gpu_prices/raw/2026-06-11_1116.csv  (455 offers)
+Compiling from 6 raw scrape(s): ['2026-06-11_1116.csv', '2026-06-11_1109.csv', '2026-06-11_1053.csv', '2026-06-11_1038.csv', '2026-06-11_1023.csv', '2026-06-11_1008.csv']
+Compiled 96 unique (model, provider) offers.
+Rows: 96  |  providers: 14  |  GPUs: 43
+Saved → /Users/ethangeng/Documents/GPU price/gpu_prices_2026-06-11.xlsx
+History updated → /Users/ethangeng/gpu_prices/history.csv  (36 total rows)
+  [01] B300 SXM6: 38883 bytes
+  [02] B200 NVL: 6935 bytes
+  [03] B200 SXM: 31943 bytes
+  [04] H200 NVL: 47757 bytes
+  [05] H200 SXM: 48430 bytes
+  [06] GH200 Grace Hopper: 42404 bytes
+  [07] H100 SXM5: 35918 bytes
+  [08] H100 NVL: 35710 bytes
+  [09] Instinct MI325X: 6935 bytes
+  [10] Instinct MI300X: 19779 bytes
+  [11] L40S: 26758 bytes
+  [12] Gaudi 2: 19718 bytes
+Charts saved → /Users/ethangeng/Documents/GPU price/GPU_Price_Trends.xlsx
+Email sent → ethangeng126@gmail.com
+=== Done: /Users/ethangeng/Documents/GPU price/gpu_prices_2026-06-11.xlsx ===
+  Page  2:  20 rows  (total: 40)
+  Page  3:  20 rows  (total: 60)
+  Page  4:  20 rows  (total: 80)
+  Page  5:  20 rows  (total: 100)
+  Page  6:  20 rows  (total: 120)
+  Page  7:  20 rows  (total: 140)
+  Page  8:  20 rows  (total: 160)
+  Page  9:  20 rows  (total: 180)
+  Page 10:  20 rows  (total: 200)
+  Page 11:  20 rows  (total: 220)
+  Page 12:  20 rows  (total: 240)
+  Page 13:  20 rows  (total: 260)
+  Page 14:  20 rows  (total: 280)
+  Page 15:  20 rows  (total: 300)
+  Page 16:  20 rows  (total: 320)
+  Page 17:  20 rows  (total: 340)
+  Page 18:  20 rows  (total: 360)
+  Page 19:  20 rows  (total: 380)
+  Page 20:  20 rows  (total: 400)
+  Page 21:  20 rows  (total: 420)
+  Page 22:  20 rows  (total: 440)
+  Page 23:  13 rows  (total: 453)
+Raw saved → /Users/ethangeng/gpu_prices/raw/2026-06-11_1137.csv  (453 offers)
+Compiling from 7 raw scrape(s): ['2026-06-11_1137.csv', '2026-06-11_1116.csv', '2026-06-11_1109.csv', '2026-06-11_1053.csv', '2026-06-11_1038.csv', '2026-06-11_1023.csv', '2026-06-11_1008.csv']
+Compiled 96 unique (model, provider) offers.
+Rows: 96  |  providers: 14  |  GPUs: 43
+Saved → /Users/ethangeng/Documents/GPU price/gpu_prices_2026-06-11.xlsx
+History updated → /Users/ethangeng/gpu_prices/history.csv  (36 total rows)
+  [01] B300 SXM6: 38883 bytes
+  [02] B200 NVL: 6935 bytes
+  [03] B200 SXM: 31943 bytes
+  [04] H200 NVL: 56112 bytes
+  [05] H200 SXM: 48430 bytes
+  [06] GH200 Grace Hopper: 42404 bytes
+  [07] H100 SXM5: 35918 bytes
+  [08] H100 NVL: 36304 bytes
+  [09] Instinct MI325X: 6935 bytes
+  [10] Instinct MI300X: 19779 bytes
+  [11] L40S: 26758 bytes
+  [12] Gaudi 2: 19718 bytes
+Charts saved → /Users/ethangeng/Documents/GPU price/GPU_Price_Trends.xlsx
+Email sent → ethangeng126@gmail.com
+=== Done: /Users/ethangeng/Documents/GPU price/gpu_prices_2026-06-11.xlsx ===
+=== Raw Scrape  2026-06-12 10:00  ===
+Traceback (most recent call last):
+  File "/Users/ethangeng/gpu_prices/scrape.py", line 234, in <module>
+    asyncio.run(main())
+    ~~~~~~~~~~~^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ~~~~~~~~~~^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/base_events.py", line 719, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "/Users/ethangeng/gpu_prices/scrape.py", line 218, in main
+    offers = await scrape_all()
+             ^^^^^^^^^^^^^^^^^^
+  File "/Users/ethangeng/gpu_prices/scrape.py", line 87, in scrape_all
+    await page.goto("https://gpuperhour.com", wait_until="networkidle", timeout=60000)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/playwright/async_api/_generated.py", line 9611, in goto
+    await self._impl_obj.goto(
+    ...<4 lines>...
+    )
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/playwright/_impl/_page.py", line 557, in goto
+    return await self._main_frame.goto(**locals_to_params(locals()))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/playwright/_impl/_frame.py", line 156, in goto
+    await self._channel.send(
+        "goto", self._navigation_timeout, locals_to_params(locals())
+    )
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/playwright/_impl/_connection.py", line 69, in send
+    return await self._connection.wrap_api_call(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/playwright/_impl/_connection.py", line 559, in wrap_api_call
+    raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+playwright._impl._errors.TimeoutError: Page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://gpuperhour.com/", waiting until "networkidle"
+
+=== Raw Scrape  2026-06-12 10:15  ===
+Traceback (most recent call last):
+  File "/Users/ethangeng/gpu_prices/scrape.py", line 234, in <module>
+    asyncio.run(main())
+    ~~~~~~~~~~~^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ~~~~~~~~~~^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/base_events.py", line 719, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "/Users/ethangeng/gpu_prices/scrape.py", line 218, in main
+    offers = await scrape_all()
+             ^^^^^^^^^^^^^^^^^^
+  File "/Users/ethangeng/gpu_prices/scrape.py", line 87, in scrape_all
+    await page.goto("https://gpuperhour.com", wait_until="networkidle", timeout=60000)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/playwright/async_api/_generated.py", line 9611, in goto
+    await self._impl_obj.goto(
+    ...<4 lines>...
+    )
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/playwright/_impl/_page.py", line 557, in goto
+    return await self._main_frame.goto(**locals_to_params(locals()))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/playwright/_impl/_frame.py", line 156, in goto
+    await self._channel.send(
+        "goto", self._navigation_timeout, locals_to_params(locals())
+    )
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/playwright/_impl/_connection.py", line 69, in send
+    return await self._connection.wrap_api_call(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/playwright/_impl/_connection.py", line 559, in wrap_api_call
+    raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+playwright._impl._errors.TimeoutError: Page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://gpuperhour.com/", waiting until "networkidle"
+
+=== Raw Scrape  2026-06-12 10:30  ===
+  Page  1:  20 rows  (total: 20)
+  Page  2:  20 rows  (total: 40)
+  Page  3:  20 rows  (total: 60)
+  Page  4:  20 rows  (total: 80)
+  Page  5:  20 rows  (total: 100)
+  Page  6:  20 rows  (total: 120)
+  Page  7:  20 rows  (total: 140)
+  Page  8:  20 rows  (total: 160)
+  Page  9:  20 rows  (total: 180)
+  Page 10:  20 rows  (total: 200)
+  Page 11:  20 rows  (total: 220)
+  Page 12:  20 rows  (total: 240)
+  Page 13:  20 rows  (total: 260)
+  Page 14:  20 rows  (total: 280)
+  Page 15:  20 rows  (total: 300)
+  Page 16:  20 rows  (total: 320)
+  Page 17:  20 rows  (total: 340)
+  Page 18:  20 rows  (total: 360)
+  Page 19:  20 rows  (total: 380)
+  Page 20:  20 rows  (total: 400)
+  Page 21:  20 rows  (total: 420)
+  Page 22:  20 rows  (total: 440)
+  Page 23:  20 rows  (total: 460)
+  Page 24:   9 rows  (total: 469)
+Raw saved → /Users/ethangeng/gpu_prices/raw/2026-06-12_1043.csv  (469 offers)
+=== Raw done ===
+=== Raw Scrape  2026-06-12 10:45  ===
+  Page  1:  20 rows  (total: 20)
+  Page  2:  20 rows  (total: 40)
+  Page  3:  20 rows  (total: 60)
+  Page  4:  20 rows  (total: 80)
+  Page  5:  20 rows  (total: 100)
+  Page  6:  20 rows  (total: 120)
+  Page  7:  20 rows  (total: 140)
+  Page  8:  20 rows  (total: 160)
+  Page  9:  20 rows  (total: 180)
+  Page 10:  20 rows  (total: 200)
+  Page 11:  20 rows  (total: 220)
+  Page 12:  20 rows  (total: 240)
+  Page 13:  20 rows  (total: 260)
+  Page 14:  20 rows  (total: 280)
+  Page 15:  20 rows  (total: 300)
+  Page 16:  20 rows  (total: 320)
+  Page 17:  20 rows  (total: 340)
+  Page 18:  20 rows  (total: 360)
+  Page 19:  20 rows  (total: 380)
+  Page 20:  20 rows  (total: 400)
+  Page 21:  20 rows  (total: 420)
+  Page 22:  20 rows  (total: 440)
+  Page 23:  20 rows  (total: 460)
+  Page 24:   6 rows  (total: 466)
+Raw saved → /Users/ethangeng/gpu_prices/raw/2026-06-12_1054.csv  (466 offers)
+=== Raw done ===
+=== Full Run  2026-06-12 11:00  ===
+  Page  1:  20 rows  (total: 20)
+  Page  2:  20 rows  (total: 40)
+  Page  3:  20 rows  (total: 60)
+  Page  4:  20 rows  (total: 80)
+  Page  5:  20 rows  (total: 100)
+  Page  6:  20 rows  (total: 120)
+  Page  7:  20 rows  (total: 140)
+  Page  8:  20 rows  (total: 160)
+  Page  9:  20 rows  (total: 180)
+  Page 10:  20 rows  (total: 200)
+  Page 11:  20 rows  (total: 220)
+  Page 12:  20 rows  (total: 240)
+  Page 13:  20 rows  (total: 260)
+  Page 14:  20 rows  (total: 280)
+  Page 15:  20 rows  (total: 300)
+  Page 16:  20 rows  (total: 320)
+  Page 17:  20 rows  (total: 340)
+  Page 18:  20 rows  (total: 360)
+  Page 19:  20 rows  (total: 380)
+  Page 20:  20 rows  (total: 400)
+  Page 21:  20 rows  (total: 420)
+  Page 22:  20 rows  (total: 440)
+  Page 23:  20 rows  (total: 460)
+  Page 24:  13 rows  (total: 473)
+Raw saved → /Users/ethangeng/gpu_prices/raw/2026-06-12_1109.csv  (473 offers)
+Compiling from 3 raw scrape(s): ['2026-06-12_1109.csv', '2026-06-12_1054.csv', '2026-06-12_1043.csv']
+Compiled 97 unique (model, provider) offers.
+Rows: 97  |  providers: 13  |  GPUs: 43
+Saved → /Users/ethangeng/Documents/GPU price/gpu_prices_2026-06-12.xlsx
+History updated → /Users/ethangeng/gpu_prices/history.csv  (48 total rows)
+Traceback (most recent call last):
+  File "/Users/ethangeng/gpu_prices/scrape.py", line 234, in <module>
+    asyncio.run(main())
+    ~~~~~~~~~~~^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ~~~~~~~~~~^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/base_events.py", line 719, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "/Users/ethangeng/gpu_prices/scrape.py", line 228, in main
+    charts_path = generate_charts_excel(hist)
+  File "/Users/ethangeng/gpu_prices/charts.py", line 243, in generate_charts_excel
+    CHARTS_FILE.unlink()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/pathlib/_local.py", line 746, in unlink
+    os.unlink(self)
+    ~~~~~~~~~^^^^^^
+PermissionError: [Errno 1] Operation not permitted: '/Users/ethangeng/Documents/GPU price/GPU_Price_Trends.xlsx'
