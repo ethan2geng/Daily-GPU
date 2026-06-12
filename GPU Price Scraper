@@ -1,5 +1,0 @@
-name: GPU Price Scraper
-
-on:
-  schedule:
-   - cron: '02***'
