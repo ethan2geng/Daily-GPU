@@ -1,0 +1,39 @@
+name: GPU Price Scraper
+
+on:
+  schedule:
+    - cron: '0 11 * * *'  # Runs at 11:00 UTC daily (adjust timezone as needed)
+  workflow_dispatch:      # Allow manual trigger
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pandas playwright openpyxl xlsxwriter
+        playwright install chromium
+
+    - name: Run scraper
+      env:
+        SMTP_USER: ${{ secrets.SMTP_USER }}
+        SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+        TO_EMAIL: ${{ secrets.TO_EMAIL }}
+      run: python scrape.py
+
+    - name: Commit and push changes
+      run: |
+        git config user.name "GPU Scraper Bot"
+        git config user.email "bot@example.com"
+        git add -A
+        git commit -m "Update GPU prices and charts - $(date -u +'%Y-%m-%d %H:%M:%S')" || echo "No changes to commit"
+        git push
