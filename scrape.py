@@ -84,7 +84,7 @@ async def scrape_all() -> list[dict]:
                 "Chrome/124.0.0.0 Safari/537.36"
             )
         )
-        await page.goto("https://gpuperhour.com", wait_until="networkidle", timeout=60000)
+        await page.goto("https://gpuperhour.com", wait_until="domcontentloaded", timeout=30000)
 
         page_num = 1
         while True:
