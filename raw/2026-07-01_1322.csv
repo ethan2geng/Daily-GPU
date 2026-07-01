@@ -1,0 +1,21 @@
+provider,gpu_model,price
+Vast.ai,NVIDIA GeForce RTX 3060,0.11
+Vast.ai,NVIDIA GeForce RTX 5060 Ti,0.18
+Vast.ai,NVIDIA GeForce RTX 5060 Ti,0.19
+Vast.ai,NVIDIA RTX A5000,0.2
+Vast.ai,NVIDIA GeForce RTX 3090,0.25
+Vast.ai,NVIDIA GeForce RTX 3090,0.25
+LeaderGPU,NVIDIA GeForce RTX 3090,0.29
+LeaderGPU,NVIDIA GeForce GTX 1080,0.3
+Vast.ai,NVIDIA RTX 4000 Ada Generation,0.33
+Vast.ai,NVIDIA GeForce RTX 4090,0.47
+Vast.ai,NVIDIA GeForce RTX 4090,0.47
+Vultr,NVIDIA A16,0.47
+Vultr,NVIDIA A16,0.47
+Vultr,NVIDIA A16,0.47
+Vultr,NVIDIA A16,0.47
+Vultr,NVIDIA A16,0.47
+Vultr,NVIDIA A16,0.47
+Vultr,NVIDIA A16,0.47
+Vultr,NVIDIA A16,0.47
+Vultr,NVIDIA A16,0.47
