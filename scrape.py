@@ -88,19 +88,26 @@ async def scrape_all() -> list[dict]:
 
         page_num = 1
         while True:
+            # After clicking Next, the table can be scraped mid-render — rows
+            # briefly empty or only partially loaded before the new page settles.
+            # Wait until two consecutive reads agree on a non-empty row count
+            # before trusting it; this is what was silently truncating
+            # pagination on slower runners (e.g. GitHub Actions).
             offers = await scrape_page(page)
+            prev_count = -1
+            for _ in range(12):
+                if offers and len(offers) == prev_count:
+                    break
+                prev_count = len(offers)
+                await page.wait_for_timeout(400)
+                offers = await scrape_page(page)
+
             all_offers.extend(offers)
             print(f"  Page {page_num:2d}: {len(offers):3d} rows  (total: {len(all_offers)})", flush=True)
 
             if not await click_next(page):
                 break
-            try:
-                await page.wait_for_function(
-                    "() => document.querySelector('table tbody tr td:nth-child(6)')?.innerText?.includes('$')",
-                    timeout=20000,
-                )
-            except Exception:
-                await page.wait_for_timeout(2000)
+            await page.wait_for_timeout(500)
             page_num += 1
 
         await browser.close()
