@@ -60,17 +60,12 @@ async def scrape_page(page) -> list[dict]:
     return offers
 
 
-async def click_next(page, debug: bool = False) -> bool:
+async def click_next(page) -> bool:
     buttons = await page.query_selector_all("button")
-    if debug:
-        texts = [(await b.inner_text()).strip() for b in buttons]
-        print(f"  [debug] {len(buttons)} buttons: {texts}", flush=True)
     for btn in buttons:
         if (await btn.inner_text()).strip() != "Next":
             continue
         if await btn.get_attribute("disabled") is not None:
-            if debug:
-                print("  [debug] Next button found but disabled", flush=True)
             continue
         await btn.click()
         return True
@@ -79,7 +74,6 @@ async def click_next(page, debug: bool = False) -> bool:
 
 async def scrape_all() -> list[dict]:
     all_offers: list[dict] = []
-    debug = True
 
     async with async_playwright() as pw:
         browser = await pw.chromium.launch(headless=True)
@@ -90,23 +84,14 @@ async def scrape_all() -> list[dict]:
                 "Chrome/124.0.0.0 Safari/537.36"
             )
         )
-        if debug:
-            page.on("console", lambda msg: print(f"  [console] {msg.type}: {msg.text}", flush=True))
-            page.on("pageerror", lambda exc: print(f"  [pageerror] {exc}", flush=True))
-            page.on("response", lambda resp: print(f"  [response] {resp.status} {resp.url}", flush=True)
-                     if resp.url.rstrip('/') == "https://gpuperhour.com" else None)
-
-        resp = await page.goto("https://gpuperhour.com", wait_until="domcontentloaded", timeout=30000)
-        if debug:
-            print(f"  [debug] initial goto status: {resp.status if resp else None}", flush=True)
+        await page.goto("https://gpuperhour.com", wait_until="domcontentloaded", timeout=30000)
 
         page_num = 1
         while True:
             # After clicking Next, the table can be scraped mid-render — rows
             # briefly empty or only partially loaded before the new page settles.
             # Wait until two consecutive reads agree on a non-empty row count
-            # before trusting it; this is what was silently truncating
-            # pagination on slower runners (e.g. GitHub Actions).
+            # before trusting it.
             offers = await scrape_page(page)
             prev_count = -1
             for _ in range(12):
@@ -119,23 +104,7 @@ async def scrape_all() -> list[dict]:
             all_offers.extend(offers)
             print(f"  Page {page_num:2d}: {len(offers):3d} rows  (total: {len(all_offers)})", flush=True)
 
-            if debug and not offers:
-                rows = await page.query_selector_all("table tbody tr")
-                print(f"  [debug] {len(rows)} <tr> elements present, url={page.url}", flush=True)
-                body_snippet = (await page.inner_text("body"))[:500]
-                print(f"  [debug] body snippet: {body_snippet!r}", flush=True)
-                if "security verification" in body_snippet.lower():
-                    print("  [debug] Cloudflare challenge detected, waiting up to 15s for auto-resolve", flush=True)
-                    for _ in range(15):
-                        await page.wait_for_timeout(1000)
-                        offers = await scrape_page(page)
-                        if offers:
-                            print(f"  [debug] challenge cleared, got {len(offers)} rows", flush=True)
-                            break
-                    else:
-                        print("  [debug] challenge did not clear within 15s", flush=True)
-
-            if not await click_next(page, debug=debug):
+            if not await click_next(page):
                 break
             await page.wait_for_timeout(500)
             page_num += 1
