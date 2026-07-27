@@ -124,6 +124,16 @@ async def scrape_all() -> list[dict]:
                 print(f"  [debug] {len(rows)} <tr> elements present, url={page.url}", flush=True)
                 body_snippet = (await page.inner_text("body"))[:500]
                 print(f"  [debug] body snippet: {body_snippet!r}", flush=True)
+                if "security verification" in body_snippet.lower():
+                    print("  [debug] Cloudflare challenge detected, waiting up to 15s for auto-resolve", flush=True)
+                    for _ in range(15):
+                        await page.wait_for_timeout(1000)
+                        offers = await scrape_page(page)
+                        if offers:
+                            print(f"  [debug] challenge cleared, got {len(offers)} rows", flush=True)
+                            break
+                    else:
+                        print("  [debug] challenge did not clear within 15s", flush=True)
 
             if not await click_next(page, debug=debug):
                 break
