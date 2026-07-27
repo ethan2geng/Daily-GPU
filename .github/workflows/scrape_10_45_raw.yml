@@ -3,6 +3,7 @@ name: GPU Price Scraper - 10:45 UTC (--raw)
 on:
   schedule:
     - cron: '45 10 * * *'
+  workflow_dispatch:
 
 jobs:
   scrape:
