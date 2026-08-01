@@ -20,8 +20,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install pandas playwright openpyxl xlsxwriter matplotlib numpy
-        playwright install chromium
+        pip install pandas requests openpyxl xlsxwriter matplotlib numpy
 
     - name: Run scraper
       env:

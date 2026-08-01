@@ -7,14 +7,13 @@ Usage:
   python3 scrape.py           # scrape + compile best from all today's raws + charts + email (11:00)
 """
 
-import asyncio
-import re
 import sys
+import time
 from datetime import datetime
 from pathlib import Path
 
 import pandas as pd
-from playwright.async_api import async_playwright
+import requests
 
 from charts import append_history, generate_charts_excel, send_email
 
@@ -25,91 +24,59 @@ SAVE_DIR.mkdir(parents=True, exist_ok=True)
 RAW_DIR    = SCRIPT_DIR / "raw"
 RAW_DIR.mkdir(exist_ok=True)
 
-COL_PROVIDER = 0
-COL_GPU      = 1
-COL_PRICE    = 5
-
 
 # ---------------------------------------------------------------------------
 # Scraping
 # ---------------------------------------------------------------------------
 
-async def scrape_page(page) -> list[dict]:
-    rows = await page.query_selector_all("table tbody tr")
-    offers = []
-    for row in rows:
-        cells = await row.query_selector_all("td")
-        if len(cells) < COL_PRICE + 1:
-            continue
-        provider  = (await cells[COL_PROVIDER].inner_text()).strip()
-        gpu_raw   = (await cells[COL_GPU].inner_text()).strip()
-        price_raw = (await cells[COL_PRICE].inner_text()).strip()
-
-        lines = [l.strip() for l in gpu_raw.split("\n") if l.strip()]
-        if lines and re.match(r"^\d+[×x]$", lines[0]):
-            lines = lines[1:]
-        gpu_model = lines[0] if lines else ""
-
-        m = re.search(r"\$\s*([\d.]+)", price_raw)
-        if not m:
-            continue
-        price = float(m.group(1))
-
-        if provider and gpu_model:
-            offers.append({"provider": provider, "gpu_model": gpu_model, "price": price})
-    return offers
+# gpuperhour.com's frontend reads from this public JSON API — hitting it
+# directly avoids driving a browser through gpuperhour.com's own pagination,
+# which has a client-side hydration bug that silently drops every page past
+# the first (the "Next" click fires the right request but the table never
+# re-renders).
+API_URL = "https://api.gpuindexes.com/api/offers"
+API_PARAMS = {
+    "sortBy": "priceHourly",
+    "sortOrder": "asc",
+    "available": "true",
+    "liveStockOnly": "true",
+    "pricingType": "on-demand",
+    "securityTier": "secure",
+    "limit": 100,  # API max
+}
 
 
-async def click_next(page) -> bool:
-    buttons = await page.query_selector_all("button")
-    for btn in buttons:
-        if (await btn.inner_text()).strip() != "Next":
-            continue
-        if await btn.get_attribute("disabled") is not None:
-            continue
-        await btn.click()
-        return True
-    return False
+def fetch_page(page_num: int, retries: int = 3) -> dict:
+    params = {**API_PARAMS, "page": page_num}
+    for attempt in range(1, retries + 1):
+        try:
+            resp = requests.get(API_URL, params=params, timeout=20)
+            resp.raise_for_status()
+            return resp.json()
+        except requests.RequestException as e:
+            if attempt == retries:
+                raise
+            print(f"  Page {page_num}: request failed ({e}), retrying...", flush=True)
+            time.sleep(2 * attempt)
 
 
-async def scrape_all() -> list[dict]:
+def scrape_all() -> list[dict]:
     all_offers: list[dict] = []
+    page_num = 1
+    while True:
+        payload = fetch_page(page_num)
+        for o in payload["data"]:
+            provider  = o.get("provider")
+            gpu_model = o.get("gpu", {}).get("name")
+            price     = o.get("pricePerGpu")
+            if provider and gpu_model and price is not None:
+                all_offers.append({"provider": provider, "gpu_model": gpu_model, "price": price})
 
-    async with async_playwright() as pw:
-        browser = await pw.chromium.launch(headless=True)
-        page = await browser.new_page(
-            user_agent=(
-                "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
-                "AppleWebKit/537.36 (KHTML, like Gecko) "
-                "Chrome/124.0.0.0 Safari/537.36"
-            )
-        )
-        await page.goto("https://gpuperhour.com", wait_until="domcontentloaded", timeout=30000)
+        print(f"  Page {page_num:2d}: {len(payload['data']):3d} rows  (total: {len(all_offers)})", flush=True)
 
-        page_num = 1
-        while True:
-            # After clicking Next, the table can be scraped mid-render — rows
-            # briefly empty or only partially loaded before the new page settles.
-            # Wait until two consecutive reads agree on a non-empty row count
-            # before trusting it.
-            offers = await scrape_page(page)
-            prev_count = -1
-            for _ in range(12):
-                if offers and len(offers) == prev_count:
-                    break
-                prev_count = len(offers)
-                await page.wait_for_timeout(400)
-                offers = await scrape_page(page)
-
-            all_offers.extend(offers)
-            print(f"  Page {page_num:2d}: {len(offers):3d} rows  (total: {len(all_offers)})", flush=True)
-
-            if not await click_next(page):
-                break
-            await page.wait_for_timeout(500)
-            page_num += 1
-
-        await browser.close()
+        if not payload.get("pagination", {}).get("hasMore"):
+            break
+        page_num += 1
 
     return all_offers
 
@@ -215,18 +182,18 @@ def save_excel(offers: list[dict]) -> Path:
 # Entry points
 # ---------------------------------------------------------------------------
 
-async def main():
+def main():
     raw_only = "--raw" in sys.argv
     now = datetime.now().strftime("%Y-%m-%d %H:%M %Z")
 
     if raw_only:
         print(f"=== Raw Scrape  {now} ===", flush=True)
-        offers = await scrape_all()
+        offers = scrape_all()
         save_raw(offers)
         print(f"=== Raw done ===", flush=True)
     else:
         print(f"=== Full Run  {now} ===", flush=True)
-        offers = await scrape_all()
+        offers = scrape_all()
         save_raw(offers)                          # save 11:00 raw too
         best = compile_best_offers()              # merge all 5 scrapes
         daily_path  = save_excel(best)
@@ -237,4 +204,4 @@ async def main():
 
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    main()
